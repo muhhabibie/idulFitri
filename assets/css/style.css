@@ -2,113 +2,117 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "idul-fitri", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-  width: 100%;
-  max-height: 100vh;
-  overflow-y: hidden;
-  position: fixed;
-}
-
-#app {
   width: 100%;
   height: 100vh;
   overflow: hidden;
   background: linear-gradient(to bottom, #611399, #2f014a);
 }
 
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Masjid */
 .masjid-wrapper {
-  max-width: 100%;
-  overflow-x: hidden;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  pointer-events: none;
 }
 
 .masjid-wrapper .masjid {
-  position: absolute;
-  bottom: 0;
-}
-
-.masjid-wrapper .masjid:first-child {
   width: 70%;
+  opacity: 0.6;
 }
 
 .masjid-wrapper .masjid:last-child {
   width: 30%;
-  left: 70%;
   transform: scaleX(-1);
 }
 
-.ketupat {
+/* Teks Latar Belakang */
+.bg-text-container {
   position: absolute;
-  top: 0;
-  filter: brightness(0%);
+  width: 100%;
+  top: 15%;
+  text-align: center;
+  z-index: 1;
 }
 
-.ketupat.ketupat-1 {
-  height: 13rem;
-  top: -13rem;
-  left: 0;
+.idul-fitri {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.1); /* Tipis saja sebagai hiasan */
+  line-height: 1.2;
 }
 
-.ketupat.ketupat-2 {
-  height: 11rem;
-  top: -11rem;
-  left: 10rem;
-}
-
-.ketupat.ketupat-3 {
-  top: -7rem;
-  height: 7rem;
-  left: 18rem;
-}
-
-.ketupat.ketupat-4 {
-  height: 11rem;
-  top: -11rem;
-  right: 24rem;
-}
-
-.ketupat.ketupat-5 {
-  height: 7rem;
-  top: -7rem;
-  right: 18rem;
-}
-
-.ketupat.ketupat-6 {
-  width: 17rem;
-  height: 22rem;
-  right: 0;
-}
-
+/* Area Utama (GIF + Teks) */
 .text-wrapper {
-  width: 50%;
-  left: 25%;
-  height: 70vh;
   position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 20;
+  padding: 0 20px;
 }
 
-.text-wrapper .text-writing {
-  font-family: "awal-ramadhan", Arial, sans-serif;
-  width: 80%;
-  font-weight: 500;
-  font-size: 2.5rem;
-  color: #fff;
-  text-shadow: 1px 1px 0 rgba(161, 159, 159, 0.6), 2px 2px 0 rgba(125, 124, 124, 0.6), 3px 3px 0 rgba(152, 149, 149, 0.6), 4px 4px 0 #e0dada;
+.content-ucapan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  line-height: 4rem;
+  width: 100%;
+  max-width: 600px;
 }
 
+.gif-lucu {
+  width: 150px;
+  height: auto;
+  margin-bottom: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.text-writing {
+  font-size: 1.8rem;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.5;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+/* Hiasan Ketupat */
+.ketupat {
+  position: absolute;
+  top: -200px;
+  width: 80px;
+  transition: all 1.5s ease;
+  filter: brightness(0) invert(1);
+  opacity: 0.3;
+}
+
+.show-ketupat { top: 0 !important; }
+
+.ketupat-1 { left: 5%; }
+.ketupat-2 { left: 20%; }
+.ketupat-3 { right: 20%; }
+.ketupat-4 { right: 5%; }
+
+/* Overlay Tombol */
 #envelope-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  inset: 0;
+  background: rgba(0,0,0,0.85);
   z-index: 999;
   display: flex;
   align-items: center;
@@ -116,133 +120,34 @@ body {
 }
 
 #envelope-wrapper button {
-  background: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
-  padding: 0.8rem 1.5rem;
-  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.25);
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
   border: none;
-  font-weight: 600;
-  border-radius: 6px;
+  border-radius: 50px;
+  background: white;
   cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,255,255,0.4);
 }
 
-.idul-fitri {
-  font-family: "idul-fitri", Arial, sans-serif;
-  width: 100%;
-  text-align: center;
-  font-size: 2.2rem;
-  transform: translateY(1.85rem);
-  font-weight: 600;
-}
-
-@media screen and (max-width: 992px) {
-  .masjid-wrapper .masjid:first-child {
-    width: 100%;
-  }
-
-  .masjid-wrapper .masjid:last-child {
-    display: none;
-  }
-
-  .text-wrapper {
-    width: 100%;
-    height: 100vh;
-    left: 0;
-    right: unset;
-    padding: 0 1rem;
-    top: 0;
-  }
-
-  .text-writing {
-    transform: translateY(-2rem);
-    width: 100%;
-    font-size: 1.6rem;
-    color: #fff;
-    line-height: 2.75rem;
-  }
-
-  .ketupat.ketupat-1 {
-    top: -7rem;
-    height: 7rem;
-    left: 0;
-  }
-
-  .ketupat.ketupat-2 {
-    top: -4.5rem;
-    height: 4.5rem;
-    left: 5.5rem;
-  }
-
-  .ketupat.ketupat-3 {
-    height: 4.5rem;
-    top: -4.5rem;
-    left: unset;
-    right: 5.5rem;
-  }
-
-  .ketupat.ketupat-4 {
-    top: -7rem;
-    height: 7rem;
-    right: 0;
-  }
-
-  .ketupat.ketupat-5 {
-    display: none;
-  }
-
-  .ketupat.ketupat-6 {
-    display: none;
-  }
-
+/* RESPONSIVE HP */
+@media screen and (max-width: 768px) {
   .idul-fitri {
-    font-size: 2.85rem;
-    transform: translateY(6rem);
+    font-size: 1.8rem;
+  }
+  
+  .text-writing {
+    font-size: 1.4rem;
+    line-height: 1.4;
+  }
+
+  .gif-lucu {
+    width: 120px;
+  }
+
+  .ketupat {
+    width: 50px;
   }
 }
-/* Container pembungkus agar GIF di atas Teks */
-.content-ucapan {
-    display: flex;
-    flex-direction: column; /* Menyusun ke bawah (GIF dulu baru Teks) */
-    align-items: center;    /* Tengah horizontal */
-    justify-content: center;
-    width: 100%;
-    z-index: 10;
-    text-align: center;
-}
 
-.gif-lucu {
-    width: 160px;       /* Sesuaikan ukuran GIF kucingnya */
-    height: auto;
-    margin-bottom: 20px; /* Jarak antara GIF dan teks di bawahnya */
-    border-radius: 10px;
-}
-
-/* Memastikan area teks di tengah layar */
-.text-wrapper {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px;
-}
-
-/* Responsif untuk HP */
-@media screen and (max-width: 992px) {
-    .gif-lucu {
-        width: 120px;
-        margin-bottom: 10px;
-    }
-    .text-writing {
-        font-size: 1.6rem !important; /* Sesuaikan ukuran font di HP */
-        line-height: 2.5rem !important;
-    }
-}
-
-/* Class pembantu untuk menyembunyikan elemen */
-.d-none {
-    display: none !important;
-}
+.d-none { display: none !important; }
