@@ -1,22 +1,13 @@
 function startWriting() {
   setTimeout(() => {
-    // Mengambil data teks dari file JSON
     fetch("./assets/data/arr_text.json")
       .then((res) => res.json())
       .then((arr_text) => {
-        // Menambahkan salam pembuka di awal baris
         arr_text.unshift(getFirstGreetingText());
-
         let currentLetter = 0;
         let currentTextIndex = 0;
         let isChangedToNewTextIndex = false;
-
-        writeText(
-          arr_text,
-          currentLetter,
-          currentTextIndex,
-          isChangedToNewTextIndex
-        );
+        writeText(arr_text, currentLetter, currentTextIndex, isChangedToNewTextIndex);
       })
       .catch(err => console.error("File JSON tidak ditemukan:", err));
   }, 1500);
@@ -32,8 +23,8 @@ function writeText(arr_text, currentLetter, currentTextIndex, isChangedToNewText
   }
 
   isChangedToNewTextIndex = false;
-
   const text = arr_text[currentTextIndex];
+
   if (currentLetter < text.length) {
     textWritingElement.innerHTML += text.charAt(currentLetter) == "|" ? "<br>" : text.charAt(currentLetter);
 
@@ -51,7 +42,7 @@ function writeText(arr_text, currentLetter, currentTextIndex, isChangedToNewText
 
 function getFirstGreetingText() {
   const name = getNameFromParam();
-  return name ? `Saya ${name} |Mengucapkan` : "Ayang Mengucapkan";
+  return name ? `Saya ${name} |Mengucapkan` : "Ayang habibi Mengucapkan";
 }
 
 function getNameFromParam() {
@@ -62,19 +53,18 @@ function getNameFromParam() {
 function closeEnvelope() {
   const envelopeWrapperElement = document.getElementById("envelope-wrapper");
   const textWritingElement = document.querySelector(".text-writing");
-  const gifElement = document.getElementById("gif-lucu"); // Mengambil elemen GIF
+  const gifElement = document.getElementById("gif-lucu"); 
   
   const audio = new Audio("./assets/music/1.mp3");
-  audio.setAttribute("loop", true);
-  audio.play();
+  audio.loop = true;
+  audio.play().catch(() => console.log("Audio play blocked."));
 
-  // Menampilkan GIF lokal (bubu.gif) saat amplop dibuka
   if (gifElement) {
     gifElement.src = "./assets/images/bubu.gif";
     gifElement.classList.remove("d-none");
   }
 
-  envelopeWrapperElement.classList.add("move-to-top");
+  envelopeWrapperElement.style.display = 'none'; // Langsung hilangkan overlay
   textWritingElement.classList.remove("d-none");
 
   showKetupat();
@@ -83,9 +73,7 @@ function closeEnvelope() {
 
 function showKetupat() {
   setTimeout(() => {
-    const arrKetupatElements = document.querySelector(".ketupat-wrapper").children;
-    for (let i = 0; i < arrKetupatElements.length; i++) {
-      arrKetupatElements[i].classList.add("show-ketupat");
-    }
-  }, 1000);
+    const ketupatElements = document.querySelectorAll(".ketupat");
+    ketupatElements.forEach(el => el.classList.add("show-ketupat"));
+  }, 500);
 }
